@@ -1,0 +1,22 @@
+Creating table:
+create table customers(cust_id int,firstname string, lastname string, age int, profession string) row format delimited fields terminated by ',' stored
+as textfile;
+
+Display the table:
+show tables; 
+
+
+1) Write a program to find the count of customers for each profession
+select profession,  count(cust_id) as count_of_customers from customers group by profession ;
+
+
+2) Write a program to find the top 10 products sales wise
+
+Creating table:
+
+create table sales(txn_id bigint, txn_date string, cust_id bigint,amount float, category string, product string, city string, state string) row format
+delimited fields terminated by ',' stored as textfile;
+
+3) Write a program to create partiioned table on category
+create table sales2(txn_id bigint, txn_date string, cust_id bigint,amount float, product string, city string, state string) partitioned by (category string) row format delimited fields terminated by ',' stored as textfile;
+
