@@ -1,0 +1,30 @@
+Create table
+schema2=StructType().add("year",IntegerType(),True).add("quarter",IntegerType(),True).add("Average_revenue_per_seat",FloatType(),True).add("total_no_of_seats",Int
+egerType(),True)  
+
+Load data:
+df_schema2=spark.read.format("csv").option("header","True").schema(schema2).load("hdfs://nameservice1/user/bigcdac432580/exam/airline.csv")  
+
+Display table:
+df_schema2.show() 
+
+Creating temp Table:
+df_schema2.registerTempTable(airline)
+
+Queries:
+1) What was the highest number of people travelled in which year?
+high_no_people= spark.sql("select sum(total_no_of_seats),year from airline group by year order by sum(total_no_of_seats)  desc ") 
+
+ 2) Identifying the highest revenue generation for which year
+high_revenue = spark.sql("select sum(Average_revenue_per_seat) as revenue,year from airline group by year order by revenue desc")                                  
+high_revenue.show()
+
+
+3) Identifying the highest revenue generation for which year and quarter (Common group)
+high_revenue_Q = spark.sql("select year,quarter, sum(Average_revenue_per_seat) as revenue from airline group by year,quarter order by revenue desc")
+high_revenue_Q.show()
+
+
+
+
+
